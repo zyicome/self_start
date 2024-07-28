@@ -1,0 +1,14 @@
+[Unit]
+
+Description=energy
+After=network.target
+[Service]
+
+User=qianli
+ExecStart=/home/qianli/self_start/energy.sh
+Environment="PYTHONPATH=/opt/ros/humble/lib/python3.10/site-packages"
+Restart=always
+ReStartSec=600
+
+[Install]
+WantedBy=multi-user.target
