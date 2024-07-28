@@ -19,7 +19,7 @@ cd $pwd
 allsource="source /opt/ros/humble/setup.bash"
 start_energy="/usr/bin/python3 main.py"
 $allsource
-gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;source install/setup.bash;$start_energy;"
+gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;$start_energy;"
 echo "Start energy finished"
 sleep $sec
 
@@ -34,7 +34,7 @@ if [ $count -eq 0 ];then
 	cd ~
 	echo "mechax2024" | sudo -S sudo chmod +777 /dev/ttyACM0
         cd $pwd
-        gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;source install/setup.bash;$start_energy;"
+        gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;$start_energy;"
 	echo "$PROC_NAME has started!"
 		sleep $sec
 else
