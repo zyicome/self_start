@@ -1,5 +1,4 @@
 #!/bin/bash
-export DISPLAY=:0
 ### BEGIN INIT INFO
 # Provides:          watchDog
 # Required-Start:    $remote_fs $syslog
@@ -13,7 +12,7 @@ export DISPLAY=:0
 sec=2
 cnt=0
 PROC_NAME=component_conta
-pwd=/home/qianli/zyb/mechax_cv_trajectory
+pwd=/home/qianli/zyb/qianli_auto_aim
 
 cd $pwd
 echo "mechax2024" | sudo -S sudo chmod 777 /dev/ttyACM0
@@ -22,12 +21,14 @@ colcon build
 echo "Colcon build finished"
 
 allsource="source /opt/ros/humble/setup.bash"
+openvino="/opt/openvino/setupvars.sh"
 source="source install/setup.bash"
-cmd="ros2 launch rm_vision_bringup vision_bringup.launch.py"
+cmd="ros2 launch rm_startup rm_launch.py"
 echo "Starting launch"
 $allsource
+$openvino
 $source
-gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;source install/setup.bash;$cmd;"
+$cmd
 echo "Launch finished"
 
 
@@ -45,8 +46,9 @@ if [ $count -eq 0 ];then
 	echo "mechax2024" | sudo -S sudo chmod 777 /dev/ttyACM0
 	cd $pwd
 	$allsource
+	$openvino
 	$source
-	gnome-terminal -- bash -ic "source ~/.bashrc;cd $pwd;source install/setup.bash;$cmd;"
+	$cmd
 	echo "$PROC_NAME has started!"
 		sleep $sec
 else
